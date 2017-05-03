@@ -1,5 +1,8 @@
 ### Encrypted Secrets testing container
 
+[![](https://images.microbadger.com/badges/image/iflowfor8hours/blackbox-container.svg)](https://microbadger.com/images/iflowfor8hours/blackbox-container "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/iflowfor8hours/blackbox-container.svg)](https://microbadger.com/images/iflowfor8hours/blackbox-container "Get your own version badge on microbadger.com")
+
 This container has all the tools needed to test blackbox enabled repositories.
 
 To get started, run the container:
