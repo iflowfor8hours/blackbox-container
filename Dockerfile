@@ -2,14 +2,13 @@ FROM buildpack-deps:jessie-curl
 LABEL maintainer "matt urbanski (https://keybase.io/iflowfor8hours)"
 
 RUN \
-  # Install dependencies
   apt-get update && apt-get install -y \
     fuse \
     libappindicator1 \
     gnupg \
     haveged \
     git-core \
-    vim-tiny \
+    vim-nox \
     ssh-client \
     --no-install-recommends \
 
@@ -28,21 +27,26 @@ RUN \
   # Create group, user
   && groupadd -g 1000 keybase \
   && useradd --create-home -g keybase -u 1000 keybase \
+  && mkdir /root/.ssh \
 
   # Install gcredstash
   && wget https://github.com/winebarrel/gcredstash/releases/download/v0.3.1/gcredstash_0.3.1_amd64.deb \
   && dpkg -i gcredstash_0.3.1_amd64.deb \
+  && alias gcredstash=credstash \
 
   # Install blackbox
   && wget https://github.com/StackExchange/blackbox/archive/production.tar.gz \
   && tar xzvf production.tar.gz -C /usr/bin --strip-components=2 blackbox-production/bin/ \
-
 
   # Cleanup
   && rm -r /var/lib/apt/lists/* \
   && rm keybase_amd64.deb* \
   && rm gcredstash_0.3.1_amd64.deb \
   && rm production.tar.gz
+
+ENV AWS_ACCESS_KEY_ID=
+ENV AWS_SECRET_ACCESS_KEY=
+ENV AWS_REGION=us-east-1
 
 USER keybase
 WORKDIR /home/keybase
